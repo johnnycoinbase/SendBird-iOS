@@ -2,7 +2,8 @@ import UIKit
 import SendBirdSDK
 
 class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDelegate {
-	// JC TODO: Create timer to message deletion after a message is read by the recipient
+	// JC TODO: Create timer to message deletion after a message is read by the recipient.
+	var timer: Timer = Timer()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,15 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 		
 		// JC TODO: Message read by recipient, start timer to delete message
 		// To get the last message, use sender.lastMessage
+		guard let lastMessage = sender.lastMessage else {
+			return
+		}
+		
+		timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { (timer) in
+			sender.delete(lastMessage) { (error) in
+				NSLog("message delete")
+			}
+		})
 	}
 	
 	func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
