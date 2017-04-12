@@ -39,9 +39,6 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
 	
-	var timer = Timer()
-	var deletionTime: TimeInterval = 30
-
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
     }
@@ -59,7 +56,7 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             self.delegate?.clickMessage(view: self, message: self.message!)
         }
     }
-    
+
     @objc private func clickResendUserMessage() {
         if self.delegate != nil {
             self.delegate?.clickResend(view: self, message: self.message!)
@@ -71,24 +68,6 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             self.delegate?.clickDelete(view: self, message: self.message!)
         }
     }
-	
-	func startDeletionTimer(timeInterval: TimeInterval) {
-		deletionCountdownLabel.isHidden = false
-		deletionCountdownLabel.text = String(Int(timeInterval))
-		deletionTime = timeInterval
-		Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-			if self.deletionTime <= 0 {
-				timer.invalidate()
-				NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.deleteMessage),
-				                                object: nil,
-				                                userInfo: ["message": self.message])
-				return
-			}
-			
-			self.deletionTime -= 1
-			self.deletionCountdownLabel.text = String(Int(self.deletionTime))
-		}
-	}
     
     func setModel(aMessage: SBDUserMessage) {
         self.message = aMessage

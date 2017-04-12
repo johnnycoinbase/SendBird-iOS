@@ -9,14 +9,20 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
         super.viewDidLoad()
 
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
+    }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		
 		NotificationCenter.default.addObserver(self,
 		                                       selector: #selector(deleteMessage(notification:)),
 		                                       name: NSNotification.Name(rawValue: Constants.deleteMessage),
 		                                       object: nil)
-    }
+	}
 	
-	deinit {
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
 		NotificationCenter.default.removeObserver(self)
 	}
 	
@@ -30,6 +36,7 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 		}
 	}
 	
+	let deletionTime: TimeInterval = 10
 	// MARK: SBDChannelDelegate
 	func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
 		if sender == self.groupChannel {
@@ -40,6 +47,10 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 			DispatchQueue.main.async {
 				self.chattingView.scrollToBottom(animated: true, force: false)
 			}
+			
+			// JC TODO: Message read by recipient, start timer to delete message
+			// To get the last message, use sender.lastMessage
+			chattingView.startDeletionCountdown(timeInterval: deletionTime)
 		}
 	}
 	
@@ -48,15 +59,18 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 			DispatchQueue.main.async {
 				self.chattingView.chattingTableView.reloadData()
 			}
+			
+			guard let lastMessage = sender.lastMessage else {
+				return
+			}
+			
+			// Start simultaneous timer for message deletion from senders end.
+			Timer.scheduledTimer(withTimeInterval: deletionTime, repeats: false, block: { (timer) in
+				sender.delete(lastMessage, completionHandler: { (error) in
+					NSLog("message deleted")
+				})
+			})
 		}
-		
-		// JC TODO: Message read by recipient, start timer to delete message
-		// To get the last message, use sender.lastMessage
-		guard let chattingView = chattingView else {
-			return
-		}
-		
-		chattingView.startDeletionCountdown(timeInterval: 10)
 	}
 	
 	func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {

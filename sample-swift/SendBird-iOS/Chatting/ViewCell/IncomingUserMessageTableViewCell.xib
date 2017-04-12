@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="245"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="244"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="245"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etk-pH-YdC" userLabel="Date Container View">
@@ -97,6 +97,16 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dsF-yr-ARN">
+                        <rect key="frame" x="52" y="193.5" width="30" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="A3R-8G-L4z"/>
+                            <constraint firstAttribute="width" constant="30" id="AzX-dw-LWo"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="textColor" red="0.27439621185747887" green="0.45437489808887699" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99 PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="da1-hz-pe6" userLabel="Message Date Label">
                         <rect key="frame" x="222" y="189.5" width="74" height="14"/>
                         <constraints>
@@ -111,11 +121,13 @@
                     <constraint firstItem="uXW-rK-eho" firstAttribute="top" secondItem="rQm-22-hdZ" secondAttribute="top" id="1s2-F2-g44"/>
                     <constraint firstItem="etk-pH-YdC" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="5rk-Ve-eXf"/>
                     <constraint firstItem="da1-hz-pe6" firstAttribute="leading" secondItem="uXW-rK-eho" secondAttribute="trailing" constant="8" id="Q8J-hr-Apx"/>
+                    <constraint firstItem="dsF-yr-ARN" firstAttribute="leading" secondItem="uXW-rK-eho" secondAttribute="leading" constant="-10" id="TFw-1C-J9t"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="da1-hz-pe6" secondAttribute="trailing" constant="24" id="WA7-oh-scj"/>
                     <constraint firstAttribute="trailing" secondItem="etk-pH-YdC" secondAttribute="trailing" id="X26-Op-hii"/>
                     <constraint firstItem="etk-pH-YdC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Y5E-PX-4j6"/>
                     <constraint firstItem="da1-hz-pe6" firstAttribute="bottom" secondItem="uXW-rK-eho" secondAttribute="bottom" id="aTe-sb-SmZ"/>
                     <constraint firstItem="uXW-rK-eho" firstAttribute="leading" secondItem="rQm-22-hdZ" secondAttribute="trailing" constant="8" id="aU7-lV-qKd"/>
+                    <constraint firstItem="dsF-yr-ARN" firstAttribute="bottom" secondItem="uXW-rK-eho" secondAttribute="bottom" constant="10" id="bWI-g3-pRc"/>
                     <constraint firstItem="uXW-rK-eho" firstAttribute="top" secondItem="etk-pH-YdC" secondAttribute="bottom" constant="10" id="md4-fa-bgy"/>
                     <constraint firstItem="rQm-22-hdZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="niF-WR-zOW"/>
                     <constraint firstItem="etk-pH-YdC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rsH-1F-YJd"/>
@@ -127,6 +139,7 @@
                 <outlet property="dateLabelContainerHeight" destination="lFp-Fb-0uI" id="gp3-yp-Zxh"/>
                 <outlet property="dateSeperatorContainerView" destination="etk-pH-YdC" id="BCQ-UP-c9L"/>
                 <outlet property="dateSeperatorLabel" destination="te8-sc-Jve" id="iss-MS-aSt"/>
+                <outlet property="deletionCountdownLabel" destination="dsF-yr-ARN" id="hHP-2f-Bby"/>
                 <outlet property="messageContainerBottomPadding" destination="Sjy-yz-TB8" id="sJR-rh-nWQ"/>
                 <outlet property="messageContainerLeftMargin" destination="aU7-lV-qKd" id="Vjy-a2-VH3"/>
                 <outlet property="messageContainerLeftPadding" destination="QOW-3C-7S8" id="xTV-fd-pyd"/>

@@ -158,7 +158,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
 			return
 		}
 		
-		guard let cell = chattingTableView.visibleCells.last as? OutgoingUserMessageTableViewCell else {
+		guard let cell = chattingTableView.visibleCells.last as? IncomingUserMessageTableViewCell else {
 			return
 		}
 		
