@@ -22,7 +22,8 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
     @IBOutlet weak var dateSeperatorLabel: UILabel!
     @IBOutlet weak var messageContainerView: UIView!
     @IBOutlet weak var sendStatusLabel: UILabel!
-    
+	@IBOutlet weak var deletionCountdownLabel: UILabel!
+	
     @IBOutlet weak var dateContainerHeight: NSLayoutConstraint!
     @IBOutlet weak var dateContainerTopMargin: NSLayoutConstraint!
     @IBOutlet weak var dateContainerBottomMargin: NSLayoutConstraint!
@@ -37,6 +38,9 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
 
     private var message: SBDUserMessage!
     private var prevMessage: SBDBaseMessage!
+	
+	var timer = Timer()
+	var deletionTime: TimeInterval = 30
 
     static func nib() -> UINib {
         return UINib(nibName: String(describing: self), bundle: Bundle(for: self))
@@ -46,6 +50,10 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
         return String(describing: self)
     }
 
+	override func awakeFromNib() {
+		deletionCountdownLabel.isHidden = true
+	}
+	
     @objc private func clickUserMessage() {
         if self.delegate != nil {
             self.delegate?.clickMessage(view: self, message: self.message!)
@@ -63,6 +71,24 @@ class OutgoingUserMessageTableViewCell: UITableViewCell {
             self.delegate?.clickDelete(view: self, message: self.message!)
         }
     }
+	
+	func startDeletionTimer(timeInterval: TimeInterval) {
+		deletionCountdownLabel.isHidden = false
+		deletionCountdownLabel.text = String(Int(timeInterval))
+		deletionTime = timeInterval
+		Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
+			if self.deletionTime <= 0 {
+				timer.invalidate()
+				NotificationCenter.default.post(name: NSNotification.Name(rawValue: Constants.deleteMessage),
+				                                object: nil,
+				                                userInfo: ["message": self.message])
+				return
+			}
+			
+			self.deletionTime -= 1
+			self.deletionCountdownLabel.text = String(Int(self.deletionTime))
+		}
+	}
     
     func setModel(aMessage: SBDUserMessage) {
         self.message = aMessage

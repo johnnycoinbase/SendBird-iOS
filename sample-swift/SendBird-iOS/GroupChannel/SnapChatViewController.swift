@@ -9,7 +9,26 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
         super.viewDidLoad()
 
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
+		
+		NotificationCenter.default.addObserver(self,
+		                                       selector: #selector(deleteMessage(notification:)),
+		                                       name: NSNotification.Name(rawValue: Constants.deleteMessage),
+		                                       object: nil)
     }
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self)
+	}
+	
+	func deleteMessage(notification: Notification) {
+		guard let message = notification.userInfo?["message"] as? SBDBaseMessage else {
+			return
+		}
+		
+		groupChannel.delete(message) { (error) in
+			NSLog("message deleted")
+		}
+	}
 	
 	// MARK: SBDChannelDelegate
 	func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
@@ -33,15 +52,11 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 		
 		// JC TODO: Message read by recipient, start timer to delete message
 		// To get the last message, use sender.lastMessage
-		guard let lastMessage = sender.lastMessage else {
+		guard let chattingView = chattingView else {
 			return
 		}
 		
-		timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: false, block: { (timer) in
-			sender.delete(lastMessage) { (error) in
-				NSLog("message delete")
-			}
-		})
+		chattingView.startDeletionCountdown(timeInterval: 10)
 	}
 	
 	func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {

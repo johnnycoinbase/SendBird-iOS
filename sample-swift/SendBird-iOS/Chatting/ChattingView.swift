@@ -140,7 +140,7 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         self.outgoingVideoFileMessageSizingTableViewCell?.isHidden = true
         self.addSubview(self.outgoingVideoFileMessageSizingTableViewCell!)
     }
-    
+	
     func scrollToBottom(animated: Bool, force: Bool) {
         if self.messages.count == 0 {
             return
@@ -152,6 +152,18 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
+	
+	func startDeletionCountdown(timeInterval: TimeInterval) {
+		if chattingTableView.visibleCells.count <= 0 {
+			return
+		}
+		
+		guard let cell = chattingTableView.visibleCells.last as? OutgoingUserMessageTableViewCell else {
+			return
+		}
+		
+		cell.startDeletionTimer(timeInterval: timeInterval)
+	}
     
     func scrollToPosition(position: Int) {
         if self.messages.count == 0 {

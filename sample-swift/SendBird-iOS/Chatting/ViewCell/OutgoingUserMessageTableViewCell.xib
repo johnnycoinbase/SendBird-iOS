@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="184"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="183"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="183.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yru-DR-yL3" userLabel="Date Container View">
@@ -69,9 +70,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8o-BF-8h0">
+                                <rect key="frame" x="151" y="112" width="30" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="85C-fY-l6a"/>
+                                    <constraint firstAttribute="width" constant="30" id="aYt-IW-0Ko"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.70644162975426239" blue="0.49991299404674783" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.50196078431372548" green="0.3529411764705882" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="u8o-BF-8h0" secondAttribute="bottom" id="JaE-zQ-es3"/>
+                            <constraint firstAttribute="trailing" secondItem="u8o-BF-8h0" secondAttribute="trailing" id="W2G-wB-27f"/>
                             <constraint firstAttribute="trailing" secondItem="MEf-kT-Jbd" secondAttribute="trailing" constant="10" id="Y0s-df-fjC"/>
                             <constraint firstAttribute="bottom" secondItem="MEf-kT-Jbd" secondAttribute="bottom" constant="10" id="kwH-qB-1dY"/>
                             <constraint firstItem="MEf-kT-Jbd" firstAttribute="leading" secondItem="218-qq-guS" secondAttribute="leading" constant="10" id="lCv-uc-7wR"/>
@@ -151,6 +164,7 @@
                 <outlet property="dateSeperatorContainerView" destination="Yru-DR-yL3" id="sfC-YG-P0Z"/>
                 <outlet property="dateSeperatorLabel" destination="Qzq-eO-w3c" id="ubX-f3-ICw"/>
                 <outlet property="deleteMessageButton" destination="Ud2-qG-Ln4" id="Eos-IF-6Jt"/>
+                <outlet property="deletionCountdownLabel" destination="u8o-BF-8h0" id="6En-sl-PmY"/>
                 <outlet property="messageContainerBottomPadding" destination="kwH-qB-1dY" id="RAg-hp-wVz"/>
                 <outlet property="messageContainerLeftMargin" destination="0kG-ca-LB9" id="G8D-aw-hDi"/>
                 <outlet property="messageContainerLeftPadding" destination="lCv-uc-7wR" id="xe6-VI-UVf"/>

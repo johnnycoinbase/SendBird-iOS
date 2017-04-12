@@ -9,6 +9,8 @@
 import UIKit
 
 class Constants: NSObject {
+	static let deleteMessage = "deleteMessage"
+	
     static func navigationBarTitleColor() -> UIColor {
         return UIColor(red: 128.0/255.0, green: 90.0/255.0, blue: 255.0/255.0, alpha: 1)
     }
