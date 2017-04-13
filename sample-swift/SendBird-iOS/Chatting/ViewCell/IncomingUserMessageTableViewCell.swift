@@ -51,6 +51,8 @@ class IncomingUserMessageTableViewCell: UITableViewCell {
             self.delegate?.clickProfileImage(viewCell: self, user: self.message!.sender!)
         }
     }
+	
+	// JC TODO: Create method that starts the countdown timer animation.
     
     @objc private func clickUserMessage() {
         if self.delegate != nil {

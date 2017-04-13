@@ -152,6 +152,9 @@ class ChattingView: ReusableViewFromXib, UITableViewDelegate, UITableViewDataSou
         
         self.chattingTableView.scrollToRow(at: IndexPath.init(row: self.messages.count - 1, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
     }
+	
+	// JC TODO: Create method that starts deletion timer for the last incoming message cell.
+	// The purpose is to start the timer countdown animation.
     
     func scrollToPosition(position: Int) {
         if self.messages.count == 0 {

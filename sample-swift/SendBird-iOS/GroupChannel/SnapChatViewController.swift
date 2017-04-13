@@ -2,13 +2,15 @@ import UIKit
 import SendBirdSDK
 
 class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDelegate {
-	// JC TODO: Create timer to message deletion after a message is read by the recipient
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
     }
+	
+	// JC TODO: Start observing global notification to delete the message.
+	// This should happen after the countdown expires.
 	
 	// MARK: SBDChannelDelegate
 	func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
@@ -20,6 +22,8 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 			DispatchQueue.main.async {
 				self.chattingView.scrollToBottom(animated: true, force: false)
 			}
+			
+			// JC TODO: Message read by recipient, start timer to delete message
 		}
 	}
 	
@@ -28,10 +32,11 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 			DispatchQueue.main.async {
 				self.chattingView.chattingTableView.reloadData()
 			}
+			
+			// JC TODO: Start a simultaneous timer as above for message deletion from the senders end.
+			//	The reason is because there isn't a backend service to sync the deletion so 
+			//	timers have to be started on the client from both ends (sender and receiver
 		}
-		
-		// JC TODO: Message read by recipient, start timer to delete message
-		// To get the last message, use sender.lastMessage
 	}
 	
 	func channelDidUpdateTypingStatus(_ sender: SBDGroupChannel) {
