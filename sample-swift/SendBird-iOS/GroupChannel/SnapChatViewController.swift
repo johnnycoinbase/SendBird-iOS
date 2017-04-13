@@ -2,15 +2,13 @@ import UIKit
 import SendBirdSDK
 
 class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDelegate {
-	// JC TODO: Create timer to message deletion after a message is read by the recipient.
-	var timer: Timer = Timer()
 	
     override func viewDidLoad() {
         super.viewDidLoad()
 
         SBDMain.add(self as SBDChannelDelegate, identifier: self.delegateIdentifier)
     }
-	
+
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
@@ -37,6 +35,7 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 	}
 	
 	let deletionTime: TimeInterval = 10
+
 	// MARK: SBDChannelDelegate
 	func channel(_ sender: SBDBaseChannel, didReceive message: SBDBaseMessage) {
 		if sender == self.groupChannel {
@@ -48,7 +47,6 @@ class SnapChatViewController: GroupChannelChattingViewController, SBDChannelDele
 				self.chattingView.scrollToBottom(animated: true, force: false)
 			}
 			
-			// JC TODO: Message read by recipient, start timer to delete message
 			// To get the last message, use sender.lastMessage
 			chattingView.startDeletionCountdown(timeInterval: deletionTime)
 		}
